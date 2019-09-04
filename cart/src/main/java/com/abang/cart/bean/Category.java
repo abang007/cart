@@ -1,9 +1,13 @@
 package com.abang.cart.bean;
 
-public class Product {
+public class Category {
     private int id;
     private String name;
-    private float price;
+
+    public Category(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -20,14 +24,4 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
 }
-
