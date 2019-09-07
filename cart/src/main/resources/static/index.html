@@ -3,11 +3,20 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>haha</title>
+
+    <style>
+        #form{
+            text-align: center;
+        }
+    </style>
 </head>
-<form action="login" method="post">
 
-    user ：<input type="text" name="user" value=""><br />
-    passwd： <input type="password" name="passwd" value=""><br />
 
-    <input type="submit" value="登陆"> <input type="button" value="注册账号">
+<form action="login" method="post" id="form">
+    <h1>登陆账号</h1>
+
+    user ：<input type="text" name="user" value=""  placeholder="请输入账号"><br />
+    passwd： <input type="password" name="passwd" value=""  placeholder="请输入密码"><br />
+
+    <input type="submit" value="登陆"> <input type="submit" value="注册账号" name="register">
 </form>

@@ -8,9 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>注册成功</title>
 </head>
-<body>
-
+<body><h1>注册成功</h1>
 </body>
 </html>
