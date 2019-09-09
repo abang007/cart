@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>用户注册</title>
@@ -10,14 +11,43 @@
     </style>
 </head>
 <body>
-<form action="register" method="post" id="register">
+<form id="register" method="post" action="register">
     <h1>用户注册</h1>
-    <input type="text" name="name" value="" placeholder="用户名">
+    <h3 id="msg"></h3>
+    <input type="text" name="name" value="" placeholder="用户名" id="name">
     <br>
     <input type="password" name="passwd" value="" placeholder="用户密码" >
     <br>
     <button>提交</button>
 </form>
+<script src="http://how2j.cn/study/jquery.min.js"></script>
+<script>
+    $(function(){
+        $("button").click(function(){
+            var url = "register";
+            var value = $(this).val();
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: value,
+                dataType:"json",
+                async: false,
+                success: function(result){
+                    var newData = JSON.stringify(result);    //将json对象转换为字符串
+                    newData = eval("("+newData+")");
+                    var msg = newData.msg;
+                    alert(msg);
+
+                },
+                error:function(){
+                        alert("提交请求失败！");
+                 }});
+
+        });
+    });
+
+</script>
 
 
 </body>

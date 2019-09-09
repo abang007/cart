@@ -1,0 +1,22 @@
+<head>
+    <meta charset="UTF-8">
+
+    <script src="http://how2j.cn/study/jquery.min.js"></script>
+</head>
+
+<script>
+$(function(){
+$("button").click(function(){
+$.post("register",function(data,status){
+alert("数据：" + data + "\n 状态：" + status);
+});
+});
+});
+</script>
+</head>
+<body>
+
+<button>向页面发送 HTTP GET 请求，然后获得返回的结果</button>
+
+</body>
+</html>

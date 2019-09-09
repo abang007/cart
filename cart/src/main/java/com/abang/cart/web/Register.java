@@ -1,10 +1,13 @@
 package com.abang.cart.web;
 
+import cn.hutool.json.JSONObject;
 import com.abang.cart.bean.User;
 import com.abang.cart.dao.UserDao;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,16 +23,21 @@ public class Register {
     @Autowired
     UserDao userDao;
     @RequestMapping(value = "/register",method = POST)
-    public String register(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void register(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         String passwd = request.getParameter("passwd");
-//        String surePasswd = request.getParameter("surePasswd");
         System.out.println("name:" + name);
         System.out.println("passwd:"+passwd);
+        JSONObject jsonObject = new JSONObject();
+
         if ((name == null || ("").equals(name) || ((passwd == null) || ("").equals(passwd)))) {
             System.out.println("请填写完整的注册信息！");
-            response.sendRedirect("register.html");
-            return null;
+            String str = "请填写完整的注册信息！";
+            jsonObject.put("msg",str);
+            String obj = jsonObject.toString();
+            response.getWriter().write(obj);
+            System.out.println(obj);
+
         } else {
             String dataPasswd = userDao.getUser(name);
             //若用户不存在，则进行注册
@@ -40,11 +48,16 @@ public class Register {
                 userDao.insertUser(user);
                 System.out.println("注册成功！");
             } else {//若用户存在则表示用户已被注册
-                System.out.println("该用户已被注册");
-                return null;
+                String msg = "该用户已被注册";
+                jsonObject.put("msg",msg);
+                response.getWriter().write(jsonObject.toString());
+                return;
             }
         }
-        return "secceed";
+        String msg = "注册成功";
+        jsonObject.put("msg",msg);
+        response.getWriter().write(jsonObject.toString());
+        return;
     }
 
 }
