@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="http://how2j.cn/study/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>用户注册</title>
@@ -11,38 +11,39 @@
     </style>
 </head>
 <body>
-<form id="register" method="post" action="register">
+<form id="register">
     <h1>用户注册</h1>
-    <h3 id="msg"></h3>
-    <input type="text" name="name" value="" placeholder="用户名" id="name">
+    <input type="text" name="name" value="" placeholder="用户名" id="user">
     <br>
-    <input type="password" name="passwd" value="" placeholder="用户密码" >
+    <input type="password" name="passwd" value="" placeholder="用户密码" id="passwd" >
     <br>
     <button>提交</button>
+    <div id="checkResult"></div>
 </form>
-<script src="http://how2j.cn/study/jquery.min.js"></script>
 <script>
     $(function(){
-        $("button").click(function(){
+        $("button").click(function () {
             var url = "register";
-            var value = $(this).val();
-
+            var name = $("#user").val();
+            var passwd = $("#passwd").val();
+            var json = {"name": name, "passwd": passwd}
             $.ajax({
                 url: url,
                 type: "POST",
-                data: value,
-                dataType:"json",
+                data: JSON.stringify(json),
+                dataType: "json",
                 async: false,
-                success: function(result){
+                contentType: 'application/json;charset=utf-8',
+                success: function (result) {
                     var newData = JSON.stringify(result);    //将json对象转换为字符串
-                    newData = eval("("+newData+")");
-                    var msg = newData.msg;
-                    alert(msg);
+                    newData = eval("(" + newData + ")");   //解析json
+                    alert("消息:" + newData.msg);
 
                 },
-                error:function(){
-                        alert("提交请求失败！");
-                 }});
+                error: function () {
+                    alert("提交请求失败！");
+                }
+            });
 
         });
     });

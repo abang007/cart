@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html>
+<script src="http://how2j.cn/study/jquery.min.js"></script>
 <head>
-
-    <title>haha</title>
-
+    <meta charset="UTF-8">
+    <title>用户登陆</title>
     <style>
         #form{
             text-align: center;
         }
     </style>
 </head>
-
-
+<body>
 <form action="login" method="post" id="form">
     <h1>登陆账号</h1>
-
     u se r：<input type="text" name="user" value=""  placeholder="请输入账号"><br />
     passwd： <input type="password" name="passwd" value=""  placeholder="请输入密码"><br />
 
-    <input type="submit" value="登陆"> <input type="submit" value="注册账号" name="register">
+    <input type="button" value="登陆" id="button"> <input type="submit" value="注册账号" name="register">
 </form>
+<script>
+    $(function () {
+        $("#button").click(function () {
+            var infos = $('form').serialize();
+            var info = $('form').serializeArray();
+            alert(infos);
+            alert(info);
+            var data = {};
+            $.each(info, function() {
+                data [this.name] = this.value;
+            });
+            alert(JSON.stringify(data));
+        });
+    });
+</script>
+</body>
