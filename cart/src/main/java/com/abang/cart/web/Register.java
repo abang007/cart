@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -19,9 +22,10 @@ public class Register {
     @Autowired
     UserDao userDao;
     //接受用户注册请求
-    @RequestMapping(value = "/register", method = POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
     public void register(@RequestBody JSONObject json,HttpServletResponse response) throws IOException {
-//        System.out.println(json.toString());
+        System.out.println("接受前台传来的json:"+json.toString());
         String name = (String) json.get("name");
         String passwd = (String) json.get("passwd");
         System.out.println("name:" + name+","+"passwd:"+passwd);
@@ -43,6 +47,7 @@ public class Register {
                 user.setPasswd(passwd);
                 userDao.insertUser(user);
                 object.put("msg", "注册成功！！！");
+                System.out.println("注册成功");
                 response.getWriter().write(String.valueOf(object));
             } else {
                 object.put("msg", "注册的用户已存在！！！");
@@ -50,5 +55,6 @@ public class Register {
             }
         }
     }
+
 
 }
