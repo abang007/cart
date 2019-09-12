@@ -42,6 +42,9 @@
                     newData = eval("(" + newData + ")");   //解析json
                     var msg = newData.msg;
                     alert(msg);
+                    if (msg == "登陆成功！") {
+                        window.location="getProduct";
+                    }
                 },
                 error: function () {
                     alert("提交请求失败！");

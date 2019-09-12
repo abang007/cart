@@ -1,5 +1,8 @@
 package com.abang.cart.bean;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Product {
     private int id;
     private String name;
@@ -23,6 +26,15 @@ public class Product {
 
     public float getPrice() {
         return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 
     public void setPrice(float price) {
