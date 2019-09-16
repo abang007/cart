@@ -2,7 +2,9 @@
          pageEncoding="UTF-8" import="java.util.*"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<div align="center">
+    当前用户: ${data.name}
+</div>
 <table align='center' border='1' cellspacing='0'>
     <tr>
         <td>id</td>
@@ -10,7 +12,7 @@
         <td>价格</td>
         <td>购买</td>
     </tr>
-    <c:forEach items="${products}" var="product" varStatus="st">
+    <c:forEach items="${data.products}" var="product" varStatus="st">
         <tr>
             <td>${product.id}</td>
             <td>${product.name}</td>

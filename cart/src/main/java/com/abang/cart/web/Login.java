@@ -15,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class Login {
@@ -22,11 +24,18 @@ public class Login {
     User user;
     @Autowired
     UserDao userDao;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login(@RequestBody JSONObject data,
+    public void login(@RequestBody JSONObject data, HttpServletRequest request,
                       HttpServletResponse response) throws IOException, ServletException {
         final Logger logger = Logger.getLogger(Login.class);
-        logger.info("传入的数据:"+data);
+        String ip = request.getRemoteAddr();
+        String url = request.getRequestURL().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d = new Date();
+        String date = sdf.format(d);
+        System.out.printf("%s %s 访问了 %s%n", date, ip, url);
+        logger.info("传入的数据:" + data);
         String name = (String) data.get("user");
         String passwd = (String) data.get("passwd");
         user.setName(name);
@@ -36,7 +45,7 @@ public class Login {
         response.setCharacterEncoding("utf-8");
         //判断是否是用户注册
         //判断用户登陆
-        logger.info("判断用户是否存在："+name);
+        logger.info("判断用户是否存在：" + name);
         if (name == null || name.equals("")) {
             object.put("msg", "用户不存在，请点击注册！");
             response.getWriter().write(object.toString());
@@ -53,7 +62,7 @@ public class Login {
         } else if (dataPasswd.equals(passwd)) {
             object.put("msg", "登陆成功！");
             response.getWriter().write(object.toString());
-            logger.info("登陆成功:"+object.get("msg"));
+            logger.info("登陆成功:" + object.get("msg"));
         }
 
     }

@@ -7,4 +7,8 @@
     <select id="ListProduct" resultType="com.abang.cart.bean.Product">
         select * from product
     </select>
+
+    <select id="getProduct" parameterType="int" resultType="com.abang.cart.bean.Product">
+        select * from product where id=#{id};
+     </select>
 </mapper>
